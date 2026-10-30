@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ridwan Adisurya Widodo | Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#FF5E14',
+                            'orange-hover': '#E04E07',
+                            'orange-light': '#FFF0E6',
+                            peach: '#FFF5EE',
+                            'peach-card': '#FFF2EB',
+                            dark: '#121316',
+                            muted: '#667085',
+                            border: '#FFE2D1'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #121316;
+        }
+
+        /* Decorative top accent line under headers */
+        .header-dash {
+            position: relative;
+            display: inline-block;
+        }
+        .header-dash::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 0;
+            width: 28px;
+            height: 4px;
+            background-color: #FF5E14;
+            border-radius: 9999px;
+        }
+
+        /* Card Hover Effects */
+        .hover-lift {
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px -6px rgba(255, 94, 20, 0.12);
+        }
+
+        /* Vector Line Drawing Accents */
+        .svg-stroke {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAFAFA;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF5E14;
+            border-radius: 4px;
+        }
+
+        /* Custom Toast Animation */
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-orange selection:text-white">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-brand-dark text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 animate-slide-up border border-gray-800">
+        <i class="fa-solid fa-circle-check text-brand-orange text-lg"></i>
+        <span id="toast-message" class="text-sm font-medium">Message copied to clipboard!</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100/80 transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="flex items-center gap-1 group">
+                <span class="font-extrabold text-2xl tracking-tight text-brand-dark">RW<span class="text-brand-orange text-3xl font-black">.</span></span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#home" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors">Home</a>
+                <a href="#about" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors">About</a>
+                <a href="#skills" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors">Skills</a>
+                <a href="#work" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors">Work</a>
+                <a href="#experience" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors">Experience</a>
+                <a href="#contact" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors">Contact</a>
+            </nav>
+
+            <!-- CTA Right Button -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#contact" class="bg-brand-dark hover:bg-gray-800 text-white font-medium text-sm px-5 py-2.5 rounded-full transition-all duration-200 flex items-center gap-2 shadow-sm hover:shadow">
+                    Let's Talk <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2 text-brand-dark focus:outline-none" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Container -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 px-6 py-4 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-brand-dark hover:text-brand-orange py-1">Home</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-brand-dark hover:text-brand-orange py-1">About</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-brand-dark hover:text-brand-orange py-1">Skills</a>
+            <a href="#work" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-brand-dark hover:text-brand-orange py-1">Work</a>
+            <a href="#experience" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-brand-dark hover:text-brand-orange py-1">Experience</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-brand-dark hover:text-brand-orange py-1">Contact</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="mt-2 w-full bg-brand-dark text-white font-medium text-sm px-5 py-2.5 rounded-full text-center block">
+                Let's Talk <i class="fa-solid fa-arrow-right text-xs ml-1"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="pt-8 pb-16 md:py-20 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+            
+            <!-- Left Column Header -->
+            <div class="md:col-span-7 space-y-6">
+                <!-- Top Badge Accent -->
+                <div class="inline-flex items-center gap-2 px-3 py-1 text-black font-semibold text-sm">
+                    <span class="header-dash pt-1">Hi, I'm</span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-brand-dark leading-tight">
+                    Ridwan <span class="text-brand-orange">Adisurya</span>
+                </h1>
+
+                <p class="text-lg sm:text-xl font-semibold text-gray-700">
+                    Computer Engineering Student & Front-End Developer
+                </p>
+
+                <p class="text-brand-muted leading-relaxed text-base max-w-xl">
+                    I build digital products that solve real problems and create meaningful impact. From idea to deployment, I turn complex IoT and front-end challenges into simple, beautiful solutions.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="pt-2 flex flex-wrap items-center gap-4">
+                    <a href="#work" class="bg-brand-orange hover:bg-brand-orange-hover text-white font-semibold text-sm px-6 py-3.5 rounded-2xl transition-all shadow-lg shadow-brand-orange/25 hover:shadow-brand-orange/40 flex items-center gap-2">
+                        View My Work <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="ATS_EN.pdf" download="./ATS_EN.pdf" class="border border-gray-300 hover:border-brand-orange bg-white hover:bg-brand-orange-light/40 text-brand-dark font-semibold text-sm px-6 py-3.5 rounded-2xl transition-all flex items-center gap-2">
+                        Download CV <i class="fa-solid fa-arrow-down text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column Illustration (Matching Image Aesthetic) -->
+            <div class="md:col-span-5 relative flex justify-center">
+                <div class="relative w-full max-w-md">
+                    <img src="./undraw_working-at-home_usrj.svg" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT ME SECTION -->
+    <section id="about" class="py-16 bg-white border-t border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+                
+                <!-- Left Side Illustration -->
+                <div class="md:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-sm">
+                        <img src="./undraw_tight-deadline_u4hu.svg">
+                    </div>
+                </div>
+
+                <!-- Right Side Content -->
+                <div class="md:col-span-7 space-y-6">
+                    <div class="header-dash">
+                        <h2 class="text-3xl font-extrabold text-brand-dark">About Me</h2>
+                    </div>
+
+                    <p class="text-brand-muted leading-relaxed text-base">
+                        Passionate about creating clean, efficient, and scalable solutions with great user experiences. I am an undergraduate Computer Engineering student at ITS Surabaya who loves working with technologies that push web development, IoT, and smart digital systems forward.
+                    </p>
+
+                    <!-- Core Traits Grid (Matching design icons) -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
+                        <!-- Trait 1 -->
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-brand-peach border border-brand-orange/10 hover-lift">
+                            <div class="w-10 h-10 rounded-xl bg-white text-brand-orange flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <span class="text-xs sm:text-sm font-bold text-brand-dark">Problem Solver</span>
+                        </div>
+
+                        <!-- Trait 2 -->
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-brand-peach border border-brand-orange/10 hover-lift">
+                            <div class="w-10 h-10 rounded-xl bg-white text-brand-orange flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <span class="text-xs sm:text-sm font-bold text-brand-dark">Detail Oriented</span>
+                        </div>
+
+                        <!-- Trait 3 -->
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-brand-peach border border-brand-orange/10 hover-lift">
+                            <div class="w-10 h-10 rounded-xl bg-white text-brand-orange flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <span class="text-xs sm:text-sm font-bold text-brand-dark">Clean Code Advocate</span>
+                        </div>
+
+                        <!-- Trait 4 -->
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-brand-peach border border-brand-orange/10 hover-lift">
+                            <div class="w-10 h-10 rounded-xl bg-white text-brand-orange flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-book-open"></i>
+                            </div>
+                            <span class="text-xs sm:text-sm font-bold text-brand-dark">Always Learning</span>
+                        </div>
+
+                        <!-- Trait 5 -->
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-brand-peach border border-brand-orange/10 hover-lift">
+                            <div class="w-10 h-10 rounded-xl bg-white text-brand-orange flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <span class="text-xs sm:text-sm font-bold text-brand-dark">Team Player</span>
+                        </div>
+
+                        <!-- Trait 6 -->
+                        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-brand-peach border border-brand-orange/10 hover-lift">
+                            <div class="w-10 h-10 rounded-xl bg-white text-brand-orange flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-compass"></i>
+                            </div>
+                            <span class="text-xs sm:text-sm font-bold text-brand-dark">Adaptive & Curious</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS & TECHNOLOGIES SECTION -->
+    <section id="skills" class="py-16 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="header-dash mb-8">
+            <h2 class="text-3xl font-extrabold text-brand-dark">Skills & Technologies</h2>
+        </div>
+
+        <!-- Skills Cards Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            
+            <!-- Skill 1: Figma -->
+            <div class="bg-brand-peach/60 hover:bg-brand-peach border border-brand-orange/10 p-5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-200 hover-lift group">
+                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-2xl text-brand-dark mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                    <i class="fa-brands fa-figma text-purple-600"></i>
+                </div>
+                <span class="font-bold text-sm text-brand-dark">Figma</span>
+                <span class="text-xs text-brand-muted mt-1">UI/UX Design</span>
+            </div>
+
+            <!-- Skill 2: React -->
+            <div class="bg-brand-peach/60 hover:bg-brand-peach border border-brand-orange/10 p-5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-200 hover-lift group">
+                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-2xl mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                    <i class="fa-brands fa-react text-sky-500"></i>
+                </div>
+                <span class="font-bold text-sm text-brand-dark">React.js</span>
+                <span class="text-xs text-brand-muted mt-1">Frontend Development</span>
+            </div>
+
+            <!-- Skill 3: JavaScript -->
+            <div class="bg-brand-peach/60 hover:bg-brand-peach border border-brand-orange/10 p-5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-200 hover-lift group">
+                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-2xl mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                    <i class="fa-brands fa-js text-amber-400"></i>
+                </div>
+                <span class="font-bold text-sm text-brand-dark">JavaScript</span>
+                <span class="text-xs text-brand-muted mt-1">Web Logic</span>
+            </div>
+
+            <!-- Skill 4: C++ -->
+            <div class="bg-brand-peach/60 hover:bg-brand-peach border border-brand-orange/10 p-5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-200 hover-lift group">
+                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-xl font-extrabold text-blue-600 mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                    C++
+                </div>
+                <span class="font-bold text-sm text-brand-dark">C++</span>
+                <span class="text-xs text-brand-muted mt-1">Comptetitive Programming & Embedded</span>
+            </div>
+
+            <!-- Skill 5: Machine Learning -->
+            <div class="bg-brand-peach/60 hover:bg-brand-peach border border-brand-orange/10 p-5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-200 hover-lift group">
+                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-2xl text-brand-orange mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <span class="font-bold text-sm text-brand-dark">AI Engineering</span>
+                <span class="text-xs text-brand-muted mt-1">Implementation Model to Project</span>
+            </div>
+
+            <!-- Skill 6: Tailwind CSS -->
+            <div class="bg-brand-peach/60 hover:bg-brand-peach border border-brand-orange/10 p-5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-200 hover-lift group col-start-2">
+                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-2xl text-teal-500 mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-wind"></i>
+                </div>
+                <span class="font-bold text-sm text-brand-dark">Tailwind CSS</span>
+                <span class="text-xs text-brand-muted mt-1">Responsive Styling</span>
+            </div>
+
+            <!-- Skill 9: Git & GitHub --> 
+            <div class="bg-brand-peach/60 hover:bg-brand-peach border border-brand-orange/10 p-5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-200 hover-lift group col-start-3">
+                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-2xl text-gray-900 mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                    <i class="fa-brands fa-github"></i>
+                </div>
+                <span class="font-bold text-sm text-brand-dark">Git & GitHub</span>
+                <span class="text-xs text-brand-muted mt-1">Version Control</span>
+            </div>
+
+            <!-- Skill 10: Problem Solving -->
+            <div class="bg-brand-peach/60 hover:bg-brand-peach border border-brand-orange/10 p-5 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-200 hover-lift group col-start-4">
+                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-2xl text-brand-orange mb-3 shadow-sm group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-ellipsis"></i>
+                </div>
+                <span class="font-bold text-sm text-brand-dark">More</span>
+                <span class="text-xs text-brand-muted mt-1">Adaptability, Leadership</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SELECTED WORK SECTION -->
+    <section id="work" class="py-16 bg-white border-t border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between mb-8">
+                <div class="header-dash">
+                    <h2 class="text-3xl font-extrabold text-brand-dark">Selected Work</h2>
+                </div>
+                <a href="#contact" class="text-sm font-bold text-brand-orange hover:text-brand-orange-hover flex items-center gap-1 transition-colors">
+                    View All Projects <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Project Card 1: Insyfest Winner Project -->
+                <div class="bg-brand-peach rounded-3xl overflow-hidden border border-brand-orange/10 hover-lift flex flex-col justify-between p-6">
+                    <div>
+                        <!-- Mockup Screen Graphic -->
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-5 relative group overflow-hidden">
+                            <img src="./RIDWAN ADISURYA WIDODO (1).png" class="object-cover">
+                        </div>
+
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-brand-dark">Insyfest 2025 UI/UX Winner</h3>
+                            <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-full">1st Place</span>
+                        </div>
+                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">
+                            Juara 1 Lomba UI/UX Insyfest 2025. Perancangan platform digital berfokus pada pengalaman pengguna yang intuitif dan sistematis.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 text-[11px] font-medium text-brand-muted">
+                        <span class="bg-white px-2.5 py-1 rounded-lg border border-gray-200">Figma</span>
+                        <span class="bg-white px-2.5 py-1 rounded-lg border border-gray-200">UI/UX</span>
+                        <span class="bg-white px-2.5 py-1 rounded-lg border border-gray-200">User Research</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 2: MAGE 12 Design & Guidebook -->
+                <div class="bg-brand-peach rounded-3xl overflow-hidden border border-brand-orange/10 hover-lift flex flex-col justify-between p-6">
+                    <div>
+                        <!-- Mockup Screen Graphic -->
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-5 relative group">
+                            <img src="./respaling.png" class="object-cover">
+                        </div>
+
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-brand-dark">Resapling : Forest crowdfunding website</h3>
+                        </div>
+                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">
+                            Website crowdfunding yang berfokus pada penghijauan dan pelestarian lingkungan. 
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 text-[11px] font-medium text-brand-muted">
+                        <span class="bg-white px-2.5 py-1 rounded-lg border border-gray-200">Design</span>
+                        <span class="bg-white px-2.5 py-1 rounded-lg border border-gray-200">Figma</span>
+                        <span class="bg-white px-2.5 py-1 rounded-lg border border-gray-200">Branding</span>
+                    </div>
+                </div>
+
+                <!-- Project Card 3: Robotics & Front-End Web -->
+                <div class="bg-brand-peach rounded-3xl overflow-hidden border border-brand-orange/10 hover-lift flex flex-col justify-between p-6">
+                    <div>
+                        <!-- Mockup Screen Graphic -->
+                        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-5 relative group">
+                            <img src="./batik.png" class="object-cover">
+                        </div>
+
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-lg font-bold text-brand-dark">Batik Tulis Website</h3>
+                        </div>
+                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">
+                            toko online untuk promosi batik tulis khas Trenggalek. pada acara Indonesia Culture Day di Universitas Petra
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 text-[11px] font-medium text-brand-muted">
+                        <span class="bg-white px-2.5 py-1 rounded-lg border border-gray-200">React.js</span>
+                        <span class="bg-white px-2.5 py-1 rounded-lg border border-gray-200">Three.js</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" class="py-16 max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="header-dash mb-10">
+            <h2 class="text-3xl font-extrabold text-brand-dark">Experience</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Experience Item 1 -->
+            <div class="bg-brand-peach/50 rounded-3xl p-6 border border-brand-orange/10 hover-lift relative overflow-hidden flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-bold text-brand-orange bg-white px-3 py-1 rounded-full border border-brand-orange/20">Feb 2026 - Present</span>
+                        <div class="w-10 h-10 rounded-2xl bg-white text-brand-dark flex items-center justify-center shadow-sm">
+                            <img src="Mage logo.svg" class="w-7 h-7">
+                        </div>
+                    </div>
+                    <h3 class="font-extrabold text-lg text-brand-dark">Staff Design & Doc</h3>
+                    <p class="text-sm font-semibold text-brand-orange mb-3">MAGE 12 ITS</p>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Berperan aktif dalam mendesain Guidebook dan Sponsorship Proposal untuk kegiatan Perlombaan Multimedia & Game Event 12 ITS.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Experience Item 2 -->
+            <div class="bg-brand-peach/50 rounded-3xl p-6 border border-brand-orange/10 hover-lift relative overflow-hidden flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-bold text-brand-orange bg-white px-3 py-1 rounded-full border border-brand-orange/20">Apr 2026 - Aug 2026</span>
+                        <div class="w-10 h-10 rounded-2xl bg-white text-brand-dark flex items-center justify-center shadow-sm">
+                            <i class="fa-brands fa-google text-red-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-extrabold text-lg text-brand-dark">Google Student Ambassador</h3>
+                    <p class="text-sm font-semibold text-brand-orange mb-3">Google Student Ambassador Indonesia</p>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Menjadi perwakilan duta Google untuk membagikan wawasan seputar teknologi Google, komunitas developer, serta kegiatan kampus.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Experience Item 3 -->
+            <div class="bg-brand-peach/50 rounded-3xl p-6 border border-brand-orange/10 hover-lift relative overflow-hidden flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-bold text-brand-orange bg-white px-3 py-1 rounded-full border border-brand-orange/20">Nov 2025 - Present</span>
+                        <div class="w-10 h-10 rounded-2xl bg-white text-brand-dark flex items-center justify-center shadow-sm">
+                            <img src="./Mantik logo.jpg" class="h-7 w-7 object-cover">
+                        </div>
+                    </div>
+                    <h3 class="font-extrabold text-lg text-brand-dark">Media Team</h3>
+                    <p class="text-sm font-semibold text-brand-orange mb-3">LKKI MANTIK Teknik Komputer</p>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Mengelola publikasi media, pembuatan konten visual, dan branding komunikasi departemen Teknik Komputer.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Experience Item 4 -->
+            <div class="bg-brand-peach/50 rounded-3xl p-6 border border-brand-orange/10 hover-lift relative overflow-hidden flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-bold text-brand-orange bg-white px-3 py-1 rounded-full border border-brand-orange/20">Sep 2025 - Aug 2026</span>
+                        <div class="w-10 h-10 rounded-2xl bg-white text-brand-dark flex items-center justify-center shadow-sm">
+                            <i class="fa-solid fa-users text-blue-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-extrabold text-lg text-brand-dark">AI Engineering Student</h3>
+                    <p class="text-sm font-semibold text-brand-orange mb-3">CodingCamp x Dicoding</p>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Mengikuti pelatihan intensif untuk memperdalam keahlian di bidang Artificial Intelligence dan Machine Learning selama 1 semester dan berhasil menciptakan project Capstone bersama dengan 5 anggota lainnya dari divisi Full stack dan Data Science
+                    </p>
+                </div>
+            </div>
+
+            <!-- Experience Item 5 -->
+            <div class="bg-brand-peach/50 rounded-3xl p-6 border border-brand-orange/10 hover-lift relative overflow-hidden flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-bold text-brand-orange bg-white px-3 py-1 rounded-full border border-brand-orange/20">Sep 2025 - Nov 2025</span>
+                        <div class="w-10 h-10 rounded-2xl bg-white text-brand-dark flex items-center justify-center shadow-sm">
+                            <i class="fa-solid fa-robot text-emerald-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-extrabold text-lg text-brand-dark">Internship Trainee</h3>
+                    <p class="text-sm font-semibold text-brand-orange mb-3">ITS ABU Robocon Team</p>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Mempelajari dasar-dasar sistem robotika canggih seperti simulasi Gazebo, ROS (Robot Operating System), dan pemrograman microcontroller STM.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Experience Item 6 -->
+            <div class="bg-brand-peach/50 rounded-3xl p-6 border border-brand-orange/10 hover-lift relative overflow-hidden flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-bold text-brand-orange bg-white px-3 py-1 rounded-full border border-brand-orange/20">May 2023 - May 2024</span>
+                        <div class="w-10 h-10 rounded-2xl bg-white text-brand-dark flex items-center justify-center shadow-sm">
+                            <i class="fa-solid fa-crown text-amber-500"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-extrabold text-lg text-brand-dark">Chief Executive Officer</h3>
+                    <p class="text-sm font-semibold text-brand-orange mb-3">Organisasi SMAN 1 Trenggalek</p>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Berhasil meningkatkan partisipasi ekstrakurikuler sebesar 150% serta membentuk divisi baru yaitu Data Engineer.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MY PROCESS SECTION -->
+    <section id="process" class="py-16 bg-white border-t border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="header-dash mb-12">
+                <h2 class="text-3xl font-extrabold text-brand-dark">My Process</h2>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 relative">
+                
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-full bg-brand-peach border-2 border-dashed border-brand-orange/40 flex items-center justify-center text-brand-orange text-xl mb-3 group-hover:scale-110 group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <span class="text-xs font-bold text-brand-orange uppercase mb-1">01</span>
+                    <h4 class="font-bold text-sm text-brand-dark mb-1">Discover</h4>
+                    <p class="text-[11px] text-brand-muted">Understand the problem deeply.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-full bg-brand-peach border-2 border-dashed border-brand-orange/40 flex items-center justify-center text-brand-orange text-xl mb-3 group-hover:scale-110 group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
+                        <i class="fa-solid fa-pen-ruler"></i>
+                    </div>
+                    <span class="text-xs font-bold text-brand-orange uppercase mb-1">02</span>
+                    <h4 class="font-bold text-sm text-brand-dark mb-1">Design</h4>
+                    <p class="text-[11px] text-brand-muted">Plan and craft simple solutions.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-full bg-brand-peach border-2 border-dashed border-brand-orange/40 flex items-center justify-center text-brand-orange text-xl mb-3 group-hover:scale-110 group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <span class="text-xs font-bold text-brand-orange uppercase mb-1">03</span>
+                    <h4 class="font-bold text-sm text-brand-dark mb-1">Develop</h4>
+                    <p class="text-[11px] text-brand-muted">Write clean code and build features.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-full bg-brand-peach border-2 border-dashed border-brand-orange/40 flex items-center justify-center text-brand-orange text-xl mb-3 group-hover:scale-110 group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <span class="text-xs font-bold text-brand-orange uppercase mb-1">04</span>
+                    <h4 class="font-bold text-sm text-brand-dark mb-1">Deploy</h4>
+                    <p class="text-[11px] text-brand-muted">Test thoroughly and launch.</p>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="flex flex-col items-center text-center group col-span-2 sm:col-span-1">
+                    <div class="w-16 h-16 rounded-full bg-brand-peach border-2 border-dashed border-brand-orange/40 flex items-center justify-center text-brand-orange text-xl mb-3 group-hover:scale-110 group-hover:bg-brand-orange group-hover:text-white transition-all shadow-sm">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <span class="text-xs font-bold text-brand-orange uppercase mb-1">05</span>
+                    <h4 class="font-bold text-sm text-brand-dark mb-1">Improve</h4>
+                    <p class="text-[11px] text-brand-muted">Monitor, iterate and improve.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / CONTACT SECTION (Matching Image Style) -->
+    <footer id="contact" class="bg-brand-peach py-16 border-t border-brand-orange/15">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pb-12 border-b border-brand-orange/15">
+                
+                <!-- Left Heading -->
+                <div class="md:col-span-6 space-y-3">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark leading-tight">
+                        Let's build something <br>
+                        <span class="header-dash text-brand-orange">meaningful together.</span>
+                    </h2>
+                </div>
+
+                <!-- Middle Contact Details -->
+                <div class="md:col-span-3 space-y-3">
+                    <a href="mailto:boymargono70@gmail.com" onclick="copyText('boymargono70@gmail.com')" class="flex items-center gap-3 text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors group">
+                        <i class="fa-regular fa-envelope text-brand-orange text-lg"></i>
+                        <span class="group-hover:underline">boymargono70@gmail.com</span>
+                    </a>
+                    
+                    <a href="tel:083857206242" onclick="copyText('083857206242')" class="flex items-center gap-3 text-sm font-semibold text-brand-dark hover:text-brand-orange transition-colors group">
+                        <i class="fa-solid fa-phone text-brand-orange text-lg"></i>
+                        <span class="group-hover:underline">+62 838-5720-6242</span>
+                    </a>
+
+                    <div class="flex items-center gap-3 text-sm font-semibold text-brand-dark">
+                        <i class="fa-solid fa-location-dot text-brand-orange text-lg"></i>
+                        <span>Trenggalek, Jawa Timur, Indonesia</span>
+                    </div>
+                </div>
+
+                <!-- Right Social Buttons & Action -->
+                <div class="md:col-span-3 flex flex-col items-start md:items-end space-y-4">
+                    <span class="text-xs font-bold text-brand-dark uppercase tracking-wider">Let's Connect</span>
+                    <div class="flex items-center gap-2">
+                        <!-- Github -->
+                        <a href="https://github.com" target="_blank" rel="noopener" class="w-10 h-10 rounded-xl bg-white border border-gray-200 hover:border-brand-orange flex items-center justify-center text-brand-dark hover:text-brand-orange transition-all shadow-sm">
+                            <i class="fa-brands fa-github text-lg"></i>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/ridwan-adisurya-widodo-7b80b5271" target="_blank" rel="noopener" class="w-10 h-10 rounded-xl bg-white border border-gray-200 hover:border-brand-orange flex items-center justify-center text-brand-dark hover:text-brand-orange transition-all shadow-sm">
+                            <i class="fa-brands fa-linkedin-in text-lg"></i>
+                        </a>
+                        <!-- Email Direct -->
+                        <a href="mailto:boymargono70@gmail.com" class="w-10 h-10 rounded-xl bg-white border border-gray-200 hover:border-brand-orange flex items-center justify-center text-brand-dark hover:text-brand-orange transition-all shadow-sm">
+                            <i class="fa-solid fa-envelope text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright line -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-brand-muted gap-4">
+                <p>© 2026 Ridwan Adisurya Widodo. All rights reserved.</p>
+                <p class="flex items-center gap-1">
+                    Crafted with <i class="fa-solid fa-heart text-brand-orange"></i> for Computer Engineering & Digital Innovation
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // Copy text helper with toast alert
+        function copyText(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+            showToast('Copied to clipboard: ' + text);
+        }
+
+        // Show Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.remove('hidden');
+            
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Modal Toggle
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // CV Download trigger
+        function downloadCV() {
+            showToast('Generating CV download...');
+            setTimeout(() => {
+                window.print();
+            }, 800);
+        }
+    </script>
+</body>
+</html>
